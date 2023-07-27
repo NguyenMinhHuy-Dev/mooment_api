@@ -5,7 +5,15 @@ const categorySchema = new mongoose.Schema(
         name: {
             type: String,
             require: true
-        }
+        },
+        slug: {
+            type: String,
+            require: true
+        },
+        collections: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Collection"
+        }]
     },
     {
         timestamps: true

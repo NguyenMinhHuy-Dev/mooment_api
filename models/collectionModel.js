@@ -10,9 +10,15 @@ const collectionSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category"
         },
-        products: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
+        items: [{
+            title: {
+                type: String,
+                require: true
+            },
+            slug: {
+                type: String,
+                require: true
+            }
         }]
     },
     {
@@ -21,3 +27,4 @@ const collectionSchema = new mongoose.Schema(
 );
 
 const Collection = mongoose.model("Collection", collectionSchema);
+module.exports = Collection;

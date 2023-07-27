@@ -8,6 +8,7 @@ const upload = multer();
 
 const productRoute = require("./routes/productRoute");
 const categoryRoute = require("./routes/categoryRoute");
+const collectionRoute = require("./routes/collectionRoute");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(morgan("common"));
 
 app.use("/v1/products", productRoute);
 app.use("/v1/categories", categoryRoute);
+app.use("/v1/collections", collectionRoute)
 
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at port ${process.env.PORT}!`);
