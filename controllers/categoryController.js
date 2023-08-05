@@ -13,7 +13,8 @@ const categoryController = {
 
     getCategory: async (req, res) => {
         try {
-            const category = await Category.find({ slug: req.params.slug })
+            const category = await Category.find({ slug: req.params.slug });
+            return res.status(200).json(category);
         } 
         catch (err) {
             return res.status(500).json(err);
