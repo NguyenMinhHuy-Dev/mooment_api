@@ -7,12 +7,15 @@ const productSchema = new mongoose.Schema(
             require: true
         },
         slug: {
-            type: String,
-            // require:
+            type: String, 
         },
         category: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category"
+        },
+        brand: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Brand'
         },
         description: {
             type: String,
@@ -23,6 +26,10 @@ const productSchema = new mongoose.Schema(
             require: true
         },
         costPrice: {
+            type: Number,
+            require: true
+        },
+        normalPrice: {
             type: Number,
             require: true
         },
