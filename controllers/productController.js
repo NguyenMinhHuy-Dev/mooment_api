@@ -6,7 +6,7 @@ const productController = {
     // GET METHOD
     getAllProduct: async (req, res) => {
         try {
-            const products = await Product.find().populate("category");
+            const products = await Product.find().populate("category").populate("brand");
             return res.status(200).json(products);
         }
         catch (err) {
