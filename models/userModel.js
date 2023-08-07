@@ -26,7 +26,15 @@ const userSchema = new mongoose.Schema(
         role: {
             type: Number,
             default: 0
-        }
+        },
+        lately: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }],
+        favourite: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }] 
     },
     {
         timestamps: true
