@@ -26,7 +26,7 @@ const productController = {
     // POST METHOD
     addProduct: async (req, res) => {
         try {  
-            const { name, description, category, brand, costPrice, salePrice, quantity } = req.body;
+            const { name, description, category, brand, costPrice, normalPrice, quantity } = req.body;
 
             // UPLOAD IMAGE TO CLOUDINARY
             const fileStr = req.body.imageUrl;
@@ -41,8 +41,10 @@ const productController = {
                 category,
                 brand,
                 costPrice,
-                salePrice,
+                normalPrice,
+                salePrice: normalPrice,
                 quantity,
+                sold: 0,
                 slug: name.toLocaleLowerCase().replaceAll(' ', '-'),
                 imageUrl: uploadedRespose.url
             });
