@@ -26,7 +26,7 @@ const userController = {
             const user = await User.findOne({ email: req.body.email });
             if (!user) return res.status(404).json("Invalid email");
 
-            const validPassword = bcrypt.compareSync(req.body.password, user.password);
+            const validPassword = await bcrypt.compareSync(req.body.password, user.password);
             if (!validPassword) return res.status(404).json("Invalid password");
 
             const returnUser = user.toObject();
