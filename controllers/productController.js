@@ -28,6 +28,17 @@ const productController = {
         try {  
             const { name, description, category, brand, costPrice, normalPrice, quantity } = req.body;
 
+            
+            const stripHTML = (str) => {
+                return str.replace(/<[^>]+>/g," ").replace(/ +/g," ").trim();
+            }
+            function removeUnicode(str) {
+                return stripHTML(str).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[đĐ]/g,"d");
+            }
+            function toSlug(str) {
+                return removeUnicode(str).toLocaleLowerCase().replace(/([^0-9a-z-\s])/g,"-").replace(/(\s+)/g,"-").replace(/-+/g,"-").replace(/^-+|-+$/g,"");
+            }
+
             // UPLOAD IMAGE TO CLOUDINARY
             const fileStr = req.body.imageUrl;
             const uploadedRespose = await cloudinary.uploader.upload(fileStr, {
@@ -45,7 +56,7 @@ const productController = {
                 salePrice: normalPrice,
                 quantity,
                 sold: 0,
-                slug: name.toLocaleLowerCase().replaceAll(' ', '-'),
+                slug: toSlug(name),
                 imageUrl: uploadedRespose.url
             });
             const saveProduct = await product.save();
