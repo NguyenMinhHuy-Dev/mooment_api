@@ -15,7 +15,7 @@ const productController = {
     },
     getProduct: async (req, res) => {
         try {
-            const product = await Product.findOne({ slug: req.params.slug });
+            const product = await Product.findOne({ slug: req.params.slug }).populate("category").populate("brand");
             return res.status(200).json(product);
         }   
         catch (err) {
