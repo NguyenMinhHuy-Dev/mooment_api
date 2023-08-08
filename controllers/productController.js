@@ -41,9 +41,18 @@ const productController = {
 
             // UPLOAD IMAGE TO CLOUDINARY
             const fileStr = req.body.imageUrl;
-            const uploadedRespose = await cloudinary.uploader.upload(fileStr, {
+            const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
                 upload_preset: 'dev_setups'
             })
+
+            const fileStrs = req.body.imageList;
+            var array = [];
+            for (const image of fileStrs) {
+                const responseImage = await cloudinary.uploader.upload(image, {
+                    upload_preset: 'dev_setups'
+                })
+                array.push(responseImage.url);
+            }
             
             // SAVE NEW PRODUCT TO MONGODB
             const product = new Product({
@@ -57,7 +66,8 @@ const productController = {
                 quantity,
                 sold: 0,
                 slug: toSlug(name),
-                imageUrl: uploadedRespose.url
+                imageUrl: uploadedResponse.url,
+                imageList: array,
             });
             const saveProduct = await product.save();
             return res.status(200).json(saveProduct);

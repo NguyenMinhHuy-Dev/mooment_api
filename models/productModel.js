@@ -25,6 +25,9 @@ const productSchema = new mongoose.Schema(
             type: String,
             require: true
         },
+        imageList: [{
+            type: String
+        }],
         costPrice: {
             type: Number,
             require: true
