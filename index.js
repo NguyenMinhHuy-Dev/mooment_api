@@ -11,6 +11,7 @@ const categoryRoute = require("./routes/categoryRoute");
 const collectionRoute = require("./routes/collectionRoute");
 const brandRoute = require("./routes/brandRoute");
 const userRoute = require("./routes/userRoute");
+const authRoute = require("./routes/authRoute");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -29,7 +30,8 @@ app.use("/v1/products", productRoute);
 app.use("/v1/categories", categoryRoute);
 app.use("/v1/collections", collectionRoute);
 app.use("/v1/brands", brandRoute);
-app.use("/v1/users", userRoute);
+app.use("/v1/auth", authRoute);
+app.use("/v1/users", userRoute); 
 
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at port ${process.env.PORT}!`);

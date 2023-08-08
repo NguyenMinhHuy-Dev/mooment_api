@@ -37,6 +37,57 @@ const userController = {
         catch (err) {
             return res.status(500).json(err);
         }
+    },
+
+    getAllUsers: async (req, res) => {
+        try {
+            const users = await User.find();
+            return res.status(200).json(users);
+        }
+        catch (err) {
+            return res.status(500).json({
+                status: 500,
+                error: err
+            })
+        }
+    },
+
+    getUser: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
+            return res.status(200).json(user);
+        }
+        catch (err) {
+            return res.status(500).json({status: 500, error: err});
+        }
+    },
+
+    addToFavourite: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
+            if (!user.favourite.includes(req.body.id))
+                await user.updateOne({ $push: { favourite: req.body.id } })
+            return res.status(200).json("Added");
+        }
+        catch (err) {
+            return res.status(500).json({status: 500, error: err});
+        }
+    },
+
+    removeFromFavourite: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
+
+            await user.updateOne({ $pull: { favourite: req.body.id } })
+
+            return res.status(200).json("Removed");
+        }
+        catch (err) {
+            return res.status(500).json({status: 500, error: err});
+        }
     }
 };
 
