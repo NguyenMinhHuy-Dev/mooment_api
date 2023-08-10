@@ -22,6 +22,16 @@ const productController = {
             return res.status(500).json(err);
         }
     },
+    getRelateProducts: async (req, res) => {
+        try {
+            const products = await Product.find();
+
+            return res.status(200).json(products);
+        }
+        catch (err) {
+            return res.status(500).json({ status: 500, message: err });
+        }
+    },
 
     // POST METHOD
     addProduct: async (req, res) => {
