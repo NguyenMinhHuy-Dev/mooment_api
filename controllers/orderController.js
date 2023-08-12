@@ -1,5 +1,6 @@
 const Order = require("../models/orderModel");
 const User = require("../models/userModel");
+const Product = require("../models/productModel");
 
 const orderController = {
     createOrder: async (req, res) => {
@@ -11,6 +12,10 @@ const orderController = {
             if (isAuth) {
                 const user = await User.findOne({ email: req.body.customerEmail });
                 await user.updateOne({ $push: { orders: savedOrder._id } });
+            }
+
+            for (const product of order.orderDetail) {
+                await Product.findOneAndUpdate({ slug: product.slug }, { $inc: { quantity: - product.quantity, sold: + product.quantity } });
             }
 
             return res.status(200).json({status: 200, message: "Create order successfull!", data: savedOrder});

@@ -61,6 +61,16 @@ const orderSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        status: {
+            type: Number,
+            default: 0,
+            // 0: Chờ xác nhận
+            // 1: Đã xác nhận
+            // 2: Đã đóng gói
+            // 3: Đang giao
+            // 4: Thành công
+            // 5: Khách hủy
+        },  
         totalCost: {
             type: Number,
             require: true
