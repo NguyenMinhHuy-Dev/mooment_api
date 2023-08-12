@@ -35,9 +35,18 @@ const orderSchema = new mongoose.Schema(
             default: 0,
         },
         orderDetail: [{
-            productName: {
+            name: {
                 type: String,
                 require: true,
+            },
+            slug: {
+                type: String,
+            },
+            imageUrl: {
+                type: String,
+            },
+            totalPrice: {
+                type: Number,
             },
             quantity: {
                 type: Number,
