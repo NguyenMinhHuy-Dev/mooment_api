@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0
         },
+        orders: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Oder"
+        }],
         lately: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Product"

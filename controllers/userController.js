@@ -63,6 +63,16 @@ const userController = {
         }
     },
 
+    updateUser: async (req, res) => {
+        try {   
+            const user = await User.findByIdAndUpdate(req.params.id, { $set: req.body });
+            return res.status(200).json(user);
+        }
+        catch (err) {
+            return res.status(500).json({status: 500, message: "Something went wrong!"});
+        }
+    },
+
     addToFavourite: async (req, res) => {
         try {
             const user = await User.findById(req.params.id);
