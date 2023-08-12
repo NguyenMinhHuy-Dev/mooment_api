@@ -13,6 +13,7 @@ const brandRoute = require("./routes/brandRoute");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 const orderRoute = require("./routes/orderRoute");
+const paypalRoute = require("./routes/paypalRoute");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -34,6 +35,7 @@ app.use("/v1/brands", brandRoute);
 app.use("/v1/auth", authRoute);
 app.use("/v1/users", userRoute); 
 app.use("/v1/orders", orderRoute);
+app.use("/my-server", paypalRoute);
 
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at port ${process.env.PORT}!`);
