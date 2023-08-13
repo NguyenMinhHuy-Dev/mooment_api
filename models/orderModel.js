@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
     {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
         customerEmail: {
             type: String,
             require: true
@@ -64,12 +68,11 @@ const orderSchema = new mongoose.Schema(
         status: {
             type: Number,
             default: 0,
-            // 0: Chờ xác nhận
-            // 1: Đã xác nhận
-            // 2: Đã đóng gói
-            // 3: Đang giao
-            // 4: Thành công
-            // 5: Khách hủy
+            // 0: Mới
+            // 1: Đang xử lý 
+            // 2: Đang vận chuyển
+            // 3: Thành công
+            // 4: Khách hủy
         },  
         totalCost: {
             type: Number,

@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getUser);
+router.get("/:id/orders", userController.getOrders);
 
 router.put("/:id", userController.updateUser);
 

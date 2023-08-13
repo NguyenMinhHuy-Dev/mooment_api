@@ -1,3 +1,4 @@
+const Order = require("../models/orderModel");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
@@ -60,6 +61,17 @@ const userController = {
         }
         catch (err) {
             return res.status(500).json({status: 500, error: err});
+        }
+    },
+
+    getOrders: async (req, res) => {
+        try {
+            // const orders = await Order.find({ customerEmail: req.params.email });
+            const user = await User.find({ email: req.params.email }).populate('order');
+            return res.status(200).json(user);
+        }
+        catch (err) {
+            return res.status(500).json({status: 500, message: "Something went wrong!"});
         }
     },
 
