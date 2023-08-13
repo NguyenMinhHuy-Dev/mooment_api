@@ -65,7 +65,21 @@ const userController = {
 
     updateUser: async (req, res) => {
         try {   
-            const user = await User.findByIdAndUpdate(req.params.id, { $set: req.body });
+            const { isChangePassword, oldPassword, newPassword, ...data } = req.body;
+            if (!isChangePassword) { 
+                await User.findByIdAndUpdate(req.params.id, { $set: {...data} }, { new: true });
+            }
+            else {
+                const user = await User.findById(req.params.id);
+                const validPassword = await bcrypt.compareSync(req.body.oldPassword, user.password);
+                if (!validPassword) return res.status(404).json("Invalid password");
+
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+                await User.findByIdAndUpdate(req.params.id, { $set: { password: hashedPassword } }, { new: true });
+            }
+            const user = await User.findById(req.params.id);
             return res.status(200).json(user);
         }
         catch (err) {
