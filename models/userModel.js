@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema(
         }],
         orders: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Oder"
+            ref: "Order"
         }],
         lately: [{
             type: mongoose.Schema.Types.ObjectId,

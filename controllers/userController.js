@@ -66,12 +66,12 @@ const userController = {
 
     getOrders: async (req, res) => {
         try {
-            // const orders = await Order.find({ customerEmail: req.params.email });
-            const user = await User.find({ email: req.params.email }).populate('order');
-            return res.status(200).json(user);
+            const user = await User.findById(req.params.id).populate('orders');
+            if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
+            return res.status(200).json(user.orders);
         }
         catch (err) {
-            return res.status(500).json({status: 500, message: "Something went wrong!"});
+            return res.status(500).json({status: 500, error: err});
         }
     },
 
