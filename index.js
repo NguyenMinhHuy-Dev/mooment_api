@@ -26,6 +26,12 @@ app.use(express.json({ limit:"50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(upload.any());
 app.use(cors());
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }
+ app.use(cors(corsOptions))
 app.use(morgan("common"));
 
 app.use("/v1/products", productRoute);
