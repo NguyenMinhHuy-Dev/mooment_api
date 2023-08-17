@@ -36,7 +36,7 @@ const productController = {
     // POST METHOD
     addProduct: async (req, res) => {
         try {  
-            const { name, description, category, brand, costPrice, normalPrice, quantity } = req.body;
+            const { name, description, category, brand, costPrice, normalPrice, quantity, unit } = req.body;
 
             
             const stripHTML = (str) => {
@@ -64,8 +64,12 @@ const productController = {
                 array.push(responseImage.url);
             }
             
+            const products = await Product.find();
+
+
             // SAVE NEW PRODUCT TO MONGODB
-            const product = new Product({
+            const product = new Product({ 
+                id: `MMP${Object.keys(products).length}`,
                 name,
                 description,
                 category,
@@ -74,6 +78,7 @@ const productController = {
                 normalPrice,
                 salePrice: normalPrice,
                 quantity,
+                unit,
                 sold: 0,
                 slug: toSlug(name),
                 imageUrl: uploadedResponse.url,

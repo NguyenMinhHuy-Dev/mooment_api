@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
     {
+        id: {
+            type: "String",
+            require: true
+        },
         name: {
             type: String,
             require: true
@@ -38,6 +42,10 @@ const productSchema = new mongoose.Schema(
         },
         salePrice: {
             type: Number,
+            require: true
+        },
+        unit: {
+            type: String,
             require: true
         },
         quantity: {
