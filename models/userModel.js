@@ -27,25 +27,17 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0
         },
-        addresses: [{
-            category: {
-                type: String,
-                default: 'Nhà riêng'
-            },
-            province: {
-                type: String
-            },
-            district: {
-                type: String
-            },
-            ward: {
-                type: String
-            },
-            default: {
-                type: Boolean,
-                default: false
-            }
-        }],
+        type: {
+            type: String,
+            default: 'Part-time',
+        },
+        salary: {
+            type: Number,
+            default: 0
+        },
+        address: {
+            type: String,
+        },
         orders: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Order"

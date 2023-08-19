@@ -5,13 +5,21 @@ const bcrypt = require("bcrypt");
 const userController = {
     signUp: async (req, res) => {
         try {
+            const {email, password, fullName, address, gender, phoneNumber, role, type, salary } = await req.body;
+
             const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(req.body.password, salt);
+            const hashedPassword = await bcrypt.hash(password, salt);
 
             const newUser = await new User({
-                email: req.body.email,
+                email,
                 password: hashedPassword,
-                fullName: req.body.fullName,
+                fullName,
+                address,
+                gender, 
+                phoneNumber, 
+                role, 
+                type, 
+                salary
             });
 
             const savedUser = await newUser.save();
@@ -96,6 +104,16 @@ const userController = {
         }
         catch (err) {
             return res.status(500).json({status: 500, message: "Something went wrong!"});
+        }
+    },
+
+    deleteUser : async (req, res) => {
+        try {
+            await User.findByIdAndDelete(req.params.id);
+            return res.status(200).json("Delete successfull");
+        }
+        catch (err) {
+            return res.status(500).json(err);
         }
     },
 

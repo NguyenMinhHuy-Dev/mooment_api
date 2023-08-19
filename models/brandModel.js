@@ -9,7 +9,11 @@ const brandSchema = new mongoose.Schema(
         slug: {
             type: String,
             require: true
-        }
+        },
+        categories: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category"
+        }]
     },
     {
         timestamps: true,
