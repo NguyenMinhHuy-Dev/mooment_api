@@ -24,7 +24,8 @@ const productController = {
     },
     getRelateProducts: async (req, res) => {
         try {
-            const products = await Product.find();
+            const product = await Product.findOne({ slug: req.params.slug });
+            const products = await Product.find({category: product.category});
 
             return res.status(200).json(products);
         }
