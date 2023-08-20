@@ -142,6 +142,21 @@ const userController = {
         catch (err) {
             return res.status(500).json({status: 500, error: err});
         }
+    },
+
+    addToLately: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
+
+            if (!user.lately.includes(req.body.id))
+                await user.updateOne({ $push: { lately: req.body.id } })
+         
+            return res.status(200).json('Add to lately successfully');
+        }
+        catch (err) {
+            return res.status(500).json(err);
+        }
     }
 };
 

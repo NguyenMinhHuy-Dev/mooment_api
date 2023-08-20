@@ -8,6 +8,7 @@ router.get("/:id/orders", userController.getOrders);
 router.put("/:id", userController.updateUser);
 
 router.post("/:id/favourite", userController.addToFavourite);
+router.put("/:id/lately", userController.addToLately);
 
 router.delete("/:id", userController.deleteUser);
 router.delete("/:id/favourite", userController.removeFromFavourite);
