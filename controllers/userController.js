@@ -63,7 +63,7 @@ const userController = {
 
     getUser: async (req, res) => {
         try {
-            const user = await User.findById(req.params.id);
+            const user = await User.findById(req.params.id).populate('favourite');
             if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
             return res.status(200).json(user);
         }
