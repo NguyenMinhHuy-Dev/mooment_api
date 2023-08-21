@@ -16,9 +16,7 @@ const orderRoute = require("./routes/orderRoute");
 const paypalRoute = require("./routes/paypalRoute");
 const slideRoute = require("./routes/slideRoute");
 const voucherRoute = require("./routes/voucherRotue");
-
-const dotenv = require("dotenv");
-dotenv.config();
+const gmailRoute = require("./routes/gmailRoute");
 
 const connectToMongoDB = require("./config/mongodb");
 connectToMongoDB(process.env.MONGODB_URL);
@@ -45,7 +43,9 @@ app.use("/v1/users", userRoute);
 app.use("/v1/orders", orderRoute);
 app.use("/my-server", paypalRoute);
 app.use("/v1/slides", slideRoute);
-app.use("/v1/vouchers", voucherRoute);
+app.use("/v1/vouchers", voucherRoute); 
+app.use("/v1/email", gmailRoute);
+
 
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at port ${process.env.PORT}!`);
