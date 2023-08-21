@@ -63,7 +63,7 @@ const userController = {
 
     getUser: async (req, res) => {
         try {
-            const user = await User.findById(req.params.id).populate('favourite');
+            const user = await User.findById(req.params.id).populate('favourite').populate("vouchers");
             if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
             return res.status(200).json(user);
         }
@@ -157,7 +157,22 @@ const userController = {
         catch (err) {
             return res.status(500).json(err);
         }
-    }
+    },
+
+    addVoucher: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) return res.status(404).json({status: 404, message: "Invalid User"});
+
+            if (!user.vouchers.includes(req.body.id))
+                await user.updateOne({ $push: { vouchers: req.body.id } })
+         
+            return res.status(200).json('Add to vouchers successfully');
+        }
+        catch (err) {
+            return res.status(500).json(err);
+        }
+    },
 };
 
 module.exports = userController;

@@ -49,7 +49,11 @@ const userSchema = new mongoose.Schema(
         favourite: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Product"
-        }] 
+        }],
+        vouchers: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Voucher"
+        }]
     },
     {
         timestamps: true

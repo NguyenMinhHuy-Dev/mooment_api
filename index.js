@@ -15,6 +15,7 @@ const authRoute = require("./routes/authRoute");
 const orderRoute = require("./routes/orderRoute");
 const paypalRoute = require("./routes/paypalRoute");
 const slideRoute = require("./routes/slideRoute");
+const voucherRoute = require("./routes/voucherRotue");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -44,6 +45,7 @@ app.use("/v1/users", userRoute);
 app.use("/v1/orders", orderRoute);
 app.use("/my-server", paypalRoute);
 app.use("/v1/slides", slideRoute);
+app.use("/v1/vouchers", voucherRoute);
 
 app.listen(process.env.PORT, () => {
     console.log(`⚡️[server]: Server is running at port ${process.env.PORT}!`);

@@ -9,6 +9,7 @@ router.put("/:id", userController.updateUser);
 
 router.post("/:id/favourite", userController.addToFavourite);
 router.put("/:id/lately", userController.addToLately);
+router.put("/:id/vouchers", userController.addVoucher);
 
 router.delete("/:id", userController.deleteUser);
 router.delete("/:id/favourite", userController.removeFromFavourite);
