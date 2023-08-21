@@ -129,16 +129,25 @@ const orderController = {
                         </div>
                 `
             }; 
-
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                    res.redirect('/');
-                } else {
-                    console.log('Email sent: ' + info.response);
-                    res.redirect('/');
-                }
-            });  
+            await new Promise((resolve, reject) => {
+                transporter.sendMail(mailData, (err, info) => {
+                  if (err) {
+                    console.error(err);
+                    reject(err);
+                  } else {
+                    resolve(info);
+                  }
+                });
+              });
+            // transporter.sendMail(mailOptions, function(error, info){
+            //     if (error) {
+            //         console.log(error);
+            //         res.redirect('/');
+            //     } else {
+            //         console.log('Email sent: ' + info.response);
+            //         res.redirect('/');
+            //     }
+            // });  
 
             return res.status(200).json({status: 200, message: "Create order successfull!", data: savedOrder});
         }
